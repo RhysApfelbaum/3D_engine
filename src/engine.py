@@ -58,7 +58,7 @@ def rotation_matrix(angle, axis):
 
 def get_resolution():
     #gets the resulotion from screen_size.txt
-    f = open('screen_size.txt', 'r')
+    f = open('../data/screen_size.txt', 'r')
     result = [int(i) for i in f.read().split('\n')]
     f.close()
     return result
@@ -123,8 +123,6 @@ class Graph:
             newlist.append(apply_matrix(self.transformation, coord))
         return newlist
 
-    
-
     def get_translation(self, vector):
         new = self.coords
         for i in range(len(new)):
@@ -150,7 +148,6 @@ class Graph:
         self.add_transformation([[factors[0],0,0],[0,factors[1],0],[0,0,factors[2]]])
         self.coords = self.get_transformation()
         self.translate(centre_of_scale)
-
         
     # creates an edge between the vertices with indicies a and b in self.coords        
     def connect(self, a, b): 
@@ -184,9 +181,7 @@ class Graph:
                     try:
                         point_draw_function(self.colour,point)
                     except:
-                        pass
-                    
-
+                        pass    
         if lines:
             for edge in self.edges:
                 point1 = points[edge[0]]
