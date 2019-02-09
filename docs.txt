@@ -1,0 +1,105 @@
+3D ENGINE
+---------------------------------
+The module engine.py takes coordinates of 3d shapes and calculates the 2d 
+coordinates necessary to represent them on a screen. program.py is an example
+of this engine being used with pygame.
+
+data/screen_size.txt
+----------------------
+This contains the screen's x and y dimensions in the form [x pixels]x[y pixels]. 
+It's currently 1920x1080.
+engine.py will use this in its projection function, so you should change it to the dimension
+of your screen or window size.
+
+A "vector" refers to a list in the form [x, y, z].
+
+engine.point_draw_function and engine.line_draw_function
+-------------------------------------------------------
+These functions are created in your program. 
+They should take 2d coordinates like [x, y] and a colour (rgb) as their parameters like so:
+point_draw_function(colour, point)
+line_draw_function(colour, point1, point2)
+The point function should draw a dot of the colour given at the coordinate given.
+The line function should draw a line of the colour given between the two coordinates.
+
+If these functions both work properly, then 3D shapes should be represented accurately. 
+
+engine.Graph(pointlist, colour)
+----------------------------------
+pointlist is a list of vectors - the points of the 3d graph
+colour is tuple in the form (r, g, b)
+
+methods:
+	connect(a, b)
+	a and b are the indices of pointlist that you want to form an edge.
+	When drawn, the graph will now have a line connecting these two points.
+	
+	translate(vector)
+	Translates the graph by the vector given.
+	
+	rotate(angles, centre_of_rotation)
+	angles is a list in the form [angle about x axis, angle about y axis, angle about z axis]
+	centre_of_rotation is a vector of the point that the graph will rotate around.
+	
+	scale(factors, centre_of_scale)
+	factors is a list of scale factors each direction like [x dir, y dir, z dir]
+	centre_of_scale is the point that the graph will be scaled from
+	
+	draw(camera, lines=True, circles=True)
+	Draws the graph to the screen. lines and circles are booleans which determine whether
+	line_draw_function and point_draw_function are called respectively. camera is a Camera object.
+
+engine.Camera(position, angles)
+-------------------------------
+position a vector of the camera's position.
+angles is a list of the x, y and z rotations
+
+attributes:
+	spd
+	This is a vector that is added to the camera's position every time update() is called.
+
+methods:
+	rotate(angles)
+	Rotates the camera by the angles given. angles has the same layout as in the constructor
+	If you want to see these changes, you have to call the update() method.
+	
+	update()
+	Applies speed and rotation to the camera.
+
+engine.get_resolution()
+-----------------------------
+Returns a tuple of the screen or window's resolution based on screen_size.txt
+
+some basic shapes
+--------------------------
+I've created some basic shape classes which inherit from the Graph class, just using a list of points
+and the connect() method. Colour is always an rgb tuple.
+These can definitely be improved, but they are just to provide an example.
+
+These are:
+	Cuboid(x,y,z, width, height, depth, colour)
+	All parameters floats except colour.
+	
+	Tetrahedron(self, x, y, z, size, colour)
+	All parameters floats except colour.
+	
+	Line(point, direction, n, colour)
+	point is a vector of the start of the line
+	direction is a vector
+	n is an integer
+
+program.py
+-----------------
+This is a simple pygame program where you can view 3D shapes from a 1st person perspective.
+
+Controls:
+
+w - forward
+a - left
+s - backward
+d - right
+space - up
+left shift - down
+mouse - look around
+r - reset camera's position to (0,0,0)
+q - exit

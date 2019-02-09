@@ -34,6 +34,10 @@ engine.line_draw_function = linedraw
 camera = engine.Camera([0,0,0], [0,0,0])
 
 #all the shapes
+x = engine.Line([-10000,0,0],[1000,0,0],20,(255,0,0))
+y = engine.Line([0,-10000,0],[0,1000,0],20,(0,255,0))
+z = engine.Line([0,0,-10000],[0,0,1000],20,(0,0,255))
+
 cube1 = engine.Cuboid(100,400,100,1000,1000,1000,(255,0,0))
 cube2 = engine.Cuboid(-500,-500,-500,1000,1000,1000,(0,0,255))
 tetrahedron = engine.Tetrahedron(2000,5000,4500,2100,(31, 111, 209))
@@ -108,6 +112,10 @@ while running:
     surface.fill((255,255,255))
 
     #draws all the shapes, but just their edges
+    x.draw(camera)
+    y.draw(camera)
+    z.draw(camera)
+
     cube1.draw(camera, circles=False)
  
     #next frame

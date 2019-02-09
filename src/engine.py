@@ -4,6 +4,7 @@ import math
 
 #technically these get updated, but only once. they are used as constants for the rest of the module
 SCRN_SIZE = None
+SCRN_SIZE_PATH = "../data/screen_size.txt"
 CENTRE = None
 
 # the matrix which represents no transformation
@@ -58,8 +59,8 @@ def rotation_matrix(angle, axis):
 
 def get_resolution():
     #gets the resulotion from screen_size.txt
-    f = open('../data/screen_size.txt', 'r')
-    result = [int(i) for i in f.read().split('\n')]
+    f = open(SCRN_SIZE_PATH, 'r')
+    result = tuple(map(int, f.read().split("x")))
     f.close()
     return result
 
@@ -179,7 +180,7 @@ class Graph:
             for point in points:
                 if point != None:
                     try:
-                        point_draw_function(self.colour,point)
+                        point_draw_function(self.colour, point)
                     except:
                         pass    
         if lines:
